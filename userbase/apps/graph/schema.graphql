@@ -1,0 +1,63 @@
+scalar DateTime
+
+input DateRangeInput {
+  gte: DateTime
+  lte: DateTime
+}
+
+type Paginator {
+  page: Int!
+  limit: Int!
+  total: Int!
+  numPages: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Query {
+  user(id: ID!): User
+  users(page: Int!, limit: Int!, filter: UserFilterInput): UsersResult
+}
+
+type Mutation {
+  createUser(input: UserInput!): UserResult!
+}
+
+enum UserStatus {
+  ACTIVE
+  DEACTIVE
+  BANNED
+  REGISTERED
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  status: UserStatus!
+  createdAt: DateTime!
+  modifiedAt: DateTime!
+}
+
+type UsersResult {
+  items: [User!]!
+  paginator: Paginator!
+}
+
+type UserResult {
+  status: Boolean!
+  error: String
+  user: User
+}
+
+input UserInput {
+  name: String!
+  email: String!
+}
+
+input UserFilterInput {
+  name: String
+  email: String
+  createdAt: DateRangeInput
+  status: [UserStatus!]
+}
