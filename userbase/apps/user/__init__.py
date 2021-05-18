@@ -1,0 +1,5 @@
+class UserStatus:
+    ACTIVE = "ACTIVE"
+    DEACTIVE = "DEACTIVE"
+    BANNED = "BANNED"
+    REGISTERED = "REGISTERED"
